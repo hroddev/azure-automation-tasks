@@ -18,9 +18,9 @@ $vms = Get-AzVM | Where-Object {$_.Tags['Automation-stop-task'] -eq 'autostop'}
 
 # Start shutdown VM's
 foreach ($vm in $vms) {
-    $status = (Get-AzVM -Name $vm.Name -ResourceGroupName $vm.ResourceGroupName -status).Statuses[1].DisplayStatus
-    if ($status = "VM Running"){
+    $status = (Get-AzVM -Name $vm.Name -ResourceGroupName $vm.ResourceGroupName -status).Statuses[1].Code
+    if ($status -ne 'PowerState/running'){
         Write-Output "Stoping VM $vm.name "
-        Stop-AzVM $vm.Name -ResourceGroupName $vm.ResourceGroupName -NoWait
+        Stop-AzVM $vm.Name -ResourceGroupName $vm.ResourceGroupName -NoWait -Force
     }
 }
