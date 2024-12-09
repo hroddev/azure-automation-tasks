@@ -1,5 +1,5 @@
 ﻿
-# Start VM with Tag: Automation-task-name value: autostart
+# Start VM with Tag: Automation-start-task value: autostart
 
 
 # Ensures you do not inherit an AzContext in your runbook
@@ -16,7 +16,7 @@ $AzureContext = Set-AzContext -SubscriptionName $AzureContext.Subscription -Defa
 $AzureContext = Set-AzContext -SubscriptionName $AzureContext.Subscription -DefaultProfile $AzureContext
 
 # get the VM's
-$vms = Get-AzVM | Where-Object {$_.Tags['Automation-task-name'] -eq 'autostart'}
+$vms = Get-AzVM | Where-Object {$_.Tags['Automation-start-task'] -eq 'autostart'}
 
 # Start shutdown VM's
 foreach ($vm in $vms) {
